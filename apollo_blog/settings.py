@@ -29,7 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'compressor',  # new
-    'apollo_blog',
+    'apollo_blog',  # new
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [
@@ -122,7 +123,7 @@ COMPRESS_ROOT = BASE_DIR / 'static'
 
 COMPRESS_ENABLED = True
 
-# added 'django.contrib.staticfiles.finders.FileSystemFinder',
+# I added this ...'django.contrib.staticfiles.finders.FileSystemFinder',
 # 'django.contrib.staticfiles.finders.AppDirectoriesFinder',)
 # to fix no CSS in django admin
 
