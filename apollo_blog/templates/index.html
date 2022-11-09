@@ -3,12 +3,12 @@
 <section class="p-5 grid gap-6  w-full grid-cols-1 gap-6 sm:grid-cols-3">
     {% for post in posts %}
     <div class="max-w-xs mx-auto bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-        <a href="#">
+        <a href="{% url 'post_detail' post.slug %}">
             <img class="rounded-t-lg" src="https://images.unsplash.com/photo-1608721279136-cd41b752fa41?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1936&q=80" alt="bottle" />
         </a>
         <div class="p-5">
             <small class="mb-2 text-xs font-bold tracking-tight text-gray-900 dark:text-white">{{ post.created_at|date:'M-d-Y H:i' }}</small>
-            <a href="#">
+            <a href="{% url 'post_detail' post.slug %}">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ post.title }}</h5>
             </a>
             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ post.intro}}</p>
