@@ -6,6 +6,6 @@ from apollo_blog.views import index, about
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('about/', about, name='about'),
-    path('', include('blog.urls'), name='about'),
+    path('', include('blog.urls')),
     path('', index, name='index'),
 ]

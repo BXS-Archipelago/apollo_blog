@@ -13,7 +13,34 @@
             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 "><strong>{{ post.intro}}</strong></p>
             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 ">{{ post.body }}</p>
 
+            <hr>
         </div>
+        <div class="px-8">
+            <h2 class="text-4xl my-8 border-black font-bold dark:text-white">Comments</h2>
+            <form method="post">
+                {% csrf_token %} {{ form.as_p }}
+
+                <div class="field mb-8">
+                    <div class="control mb-6">
+                        <button class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Submit
+                        Comment</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        {% for comment in post.comments.all %}
+        <article class="media mb-3 p-4 w-full bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700 ">
+            <div class="media-content">
+                <strong>{{ comment.name }}</strong> <small>{{ comment.created_at|timesince }} ago</small><br>
+
+
+                <p class="text-lg font-light dark:text-white">{{ comment.body }}</p>
+
+            </div>
+        </article>
+        {% endfor %}
+
     </div>
 
 </section>
