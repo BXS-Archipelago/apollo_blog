@@ -6,17 +6,18 @@
             <img class="h-auto rounded-t-lg" src="https://images.unsplash.com/photo-1608721279136-cd41b752fa41?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1936&q=80 " alt="bottle " />
         </div>
         <div class="p-5 ">
-            <small class="mb-2 text-xs font-bold tracking-tight text-gray-900 dark:text-white ">{{ post.created_at|date:'M-d-Y H:i' }}</small>
+            <small class="mb-2 text-xs font-semibold tracking-tight text-gray-900 dark:text-white ">{{ post.created_at|date:'M-d-Y H:i' }}</small>
 
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white ">{{ post.title }}</h5>
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900  dark:text-white ">{{ post.title }}</h5>
 
             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 "><strong>{{ post.intro}}</strong></p>
             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 ">{{ post.body }}</p>
+            <p class="mb-3 text-sm font-normal tracking-wide text-gray-900 dark:text-white ">Category: <a href="{% url 'category_detail' post.category.slug %}" class="font-semibold">{{ post.category }}</a></p>
 
             <hr>
         </div>
-        <div class="px-8">
-            <h2 class="text-4xl my-8 border-black font-bold dark:text-white">Comments</h2>
+        <div class="px-8 comment-form">
+            <h2 class="text-4xl my-8 border-black font-bold dark:text-white">Comment</h2>
             <form method="post">
                 {% csrf_token %} {{ form.as_p }}
 
