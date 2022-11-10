@@ -14,6 +14,14 @@ class Category(models.Model):
 
 
 class Post(models.Model):
+    ACTIVE = 'active'
+    DRAFT = 'draft'
+
+    CHOICES_STATUS = (
+        (ACTIVE, 'Active'),
+        (DRAFT, 'Draft')
+    )
+
     category = models.ForeignKey(
         Category, related_name='posts', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
@@ -21,6 +29,8 @@ class Post(models.Model):
     intro = models.TextField()
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(
+        max_length=10, choices=CHOICES_STATUS, default=ACTIVE)
 
     class Meta:
         ordering = ('-created_at',)

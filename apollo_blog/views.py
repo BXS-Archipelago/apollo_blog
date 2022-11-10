@@ -3,7 +3,7 @@ from blog.models import Post
 
 
 def index(request):
-    posts = Post.objects.all()
+    posts = Post.objects.filter(status=Post.ACTIVE)
     return render(request, 'index.html', {'posts': posts})
 
 
