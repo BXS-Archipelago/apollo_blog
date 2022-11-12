@@ -1,8 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
-        './apollo_blog/templates/**/*.html',
-        './blog/templates/**/*.html',
+        "../templates/**/*.{html,js}",
+        './apollo_blog/templates/base.html',
+        './blog/templates/blog/*.html',
         './node_modules/flowbite/**/*.js',
     ],
     theme: {
