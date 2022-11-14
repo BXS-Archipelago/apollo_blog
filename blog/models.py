@@ -8,11 +8,14 @@ class Category(models.Model):
     class Meta:
         ordering = ('title',)
         verbose_name_plural = 'Categories'
+           
 
     def __str__(self):
         return self.title
 
-
+    def get_absolute_url(self):
+        return '/%s/' % self.slug 
+    
 class Post(models.Model):
     ACTIVE = 'active'
     DRAFT = 'draft'
@@ -31,6 +34,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
         max_length=10, choices=CHOICES_STATUS, default=ACTIVE)
+    image = models.ImageField(upload_to='uploads/', blank=True, null=True)
 
     class Meta:
         ordering = ('-created_at',)
@@ -38,6 +42,8 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return '/%s/%s/' % (self.category.slug, self.slug)
 
 class Comment(models.Model):
     post = models.ForeignKey(
