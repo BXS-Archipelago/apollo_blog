@@ -1,0 +1,125 @@
+// Django setup
+
+python3 -m venv venv &  venv\Scripts\activate.bat  
+
+https://flowbite.com/docs/getting-started/django/
+
+pip install django
+django-admin startproject apollo_blog 
+settings add to templates ...  'DIRS': [BASE_DIR / 'templates'], # new
+python -m pip install django-compressor  .... 
+ **   --- Django Compressor processes, combines and minifies linked and inline Javascript or 
+ **       CSS in a Django template into cacheable static files.
+
+add 'compressor',  # new  to install apps in settings
+Create in app folders and file static>src>input.css 
+Create a new views.py from django.shortcuts import render
+    - add ... def index(request): return render(request, 'index.html')
+
+Update urls and use ... from .views import index
+    add path('', index, name='index')
+
+Create a new _base.html file inside the templates/ directory 
+Complete with head and jinja templating as seen.
+
+Create new index.html to serve as homepage and run the server
+add 'apollo_blog' to installed apps in settings 
+python manage.py migrate
+python manage.py runserver
+
+/// Tailwind install ///
+npm install -D tailwindcss
+npx tailwindcss init 
+    - ... creates a new tailwind.config.js file
+content: [      './templates/**/*.html'  ],
+    - ... Configures the template paths using the content value
+
+Import the Tailwind CSS directives inside the input.css file
+
+npx tailwindcss -i ./static/src/input.css -o ./static/src/output.css --watch
+
+///Install Flowbite ///
+npm i flowbite  ... install command
+in tailwind.config.js ... add to plugins ... require('flowbite/plugin')
+also in same.... add to content... './node_modules/flowbite/**/*.js'
+
+In _base.html add at end of body ...
+     <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
+
+add navbar to _base.html
+add test card to index.html
+
+// Blog Setup //
+python manage.py createsuperuser
+python manage.py runserver
+**
+python manage.py startapp apollo_blog
+apollo_blog.apps.CoreConfig to settings-installed apps
+
+apollo_blog>templates>frontpage.html (landing page extend base.html)
+apollo_blog>templates>about.html 
+
+python manage.py startapp blog
+create Post model in models.py of blog app
+make migrations and migrate
+blog>admin.py  registers ... admin.site.register(Post)
+add {{ post.title }} etc to the index.html to build out the posts
+create detail.html and populate with jinja also. 
+create detail function in views for post and slug
+create url for post_detail in blog>urls
+in project folder urls include path('', include('blog.urls'), name='about'),
+
+create new Category Model in blog>models.py
+Migrate changes
+register Category to blog>admin.py
+Change verbose_plural in models.py
+Create test categories in admin
+add category foreignkey in models Post
+in models Category, represent the self.title as a string
+in models Post, represent the self.title as a string
+create category.html in blog app
+in blog>views create category function
+in blog>urls add category 
+in blog>urls add extra /<slug:category_slug>  to the detail url
+update <a href> in index.html and detail.html to accomodate category slugs
+
+Add search functionality - admin.py create PostAdmin and CategoryAdmin
+    - shows search and filter functions in the admin panel
+
+blog>admin.py create comment admin and display comments inline beneath the posts
+
+set blog model Post with Active and Draft for Status field
+set admin.py PostAdmin to show status in list display and list filter
+in project app views.py set index view to ..
+    - Post.objects.filter(status=Post.ACTIVE) to show only active posts
+in blog app views set detail view post also with status=Post.ACTIVE
+in blog app views set category view with category.posts.filter(status=Post.ACTIVE)
+    - also add to render request....  'posts': posts
+
+in blog>views create search function
+create search.html in templates for blog
+use the same html from category page
+update blog urls
+in views import Q and add filter Q to the search function for intro title and body.
+Add image to blog>models.py in the Post class to indicate where images are located
+In settings add the MEDIA_URL and MEDIA_ROOT
+Install Pillow .... python -m pip install Pillow
+in blog.urls.py import static and settings 
+    - add the +static to find the MEDIA_URL and MEDIA_ROOT in settings
+Set jinja in detail.html and frontpage.html to hold the image
+
+O_O Sitemap helps google get information about the website structure....
+Create Sitemap.py in apollo_blog and add imports 
+create sitemap functions to return categories, posts and last modified date created_at
+in apollo_blog project urls, import sitemap requirements
+create url path for sitemap.xml
+in blog>models create get_absolute_url functions in in Category and Post 
+add to installed_apps in settings.py ... 'django.contrib.sitemaps', 
+
+O_O robots_txt file will prevent bots from accessing admin or other private pages. 
+In apollo_blog>views.py create robots_txt function to create a list of forbidden pages
+    - import HttpResponse
+In urls.py add path for robots.txt
+
+Deploy to render: 
+

@@ -1,0 +1,1 @@
+web: gunicorn apollo_blog.wsgi --log-file -
